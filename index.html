@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #custom-button {
+          width: 18px;
+          height: 18px;
+          display: inline-block;
+          font-weight: bold;
+          text-align: center;
+          color: white;
+          background-color: #009578;
+          border: none;
+          font-size: 17px;
+          border-radius: 100%;
+          cursor: pointer;
+          background-image: linear-gradient(to right, #21b086 , #0de5a2);
+          outline: none;
+          padding: 0;
+          line-height: 1;
+        }
+
+        #custom-button:hover {
+          background-color: #00b28f;
+        }
+
+        #custom-text {
+          margin-left: 10px;
+          font-family: sans-serif;
+          color: #aaa;
+        }
+  </style>
+</head>
+
+<body>
+    <div class="elementor-field-type-upload">
+      <input type="file" id="real-file" />
+    </div>
+    
+    <script src="jquery.js"></script>
+    <script>
+      jQuery(function($){
+
+        $('.elementor-field-type-upload')
+          .append('<span id="custom-text">Resume*</span>')
+          .append('<button type="button" id="custom-button">+</button>')
+
+        const realFileBtn = document.getElementById("real-file");
+        const customBtn = document.getElementById("custom-button");
+        const customTxt = document.getElementById("custom-text");
+
+        realFileBtn.setAttribute("hidden", "hidden");
+
+        $(customBtn).click(function() {
+            realFileBtn.click();
+        });
+
+        $(realFileBtn).change( function() {
+            if (realFileBtn.value) {
+                customTxt.innerHTML = realFileBtn.value.match(
+                    /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                )[1];
+            } else {
+                customTxt.innerHTML = "No file chosen, yet.";
+            }
+        });
+      })
+        
+    </script>
+</body>
+</html>
